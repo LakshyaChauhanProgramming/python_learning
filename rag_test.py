@@ -53,20 +53,14 @@ class RAGApplication:
         - Return the top-k matching documents
         """
         query_vec = self._embed(question)
-        print('\n question-----', question)
-        print('\n query vec-----', query_vec)
-        print('\n self.embeddings-----', self.embeddings)
         scores = []
-
-        # scores = [self._cosine_similarity(query_vec, doc_vec) for doc_vec in self.embeddings]
-        # or
 
         for i in range(len(self.embeddings)):
             scores.append(self._cosine_similarity(query_vec, self.embeddings[i]))
 
-        print('scores-----', scores)
+        ranked_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
 
-        # ranked_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
+        return [self.documents[i] for i in ranked_indices[:k]]
 
 
     def query(self, question: str) -> str:
@@ -80,8 +74,8 @@ class RAGApplication:
         - Combine them into a single string as context
         - You can return a simple formatted answer (no real LLM needed)
         """
-        # TODO: Retrieve relevant documents and generate an answer
-        pass
+        
+        return ' '.join(self.retrieve(question=question, k=2))
 
 
 if __name__ == "__main__":
@@ -89,21 +83,22 @@ if __name__ == "__main__":
 
     # print(re.findall(r"\w+", "The Eiffel Tower is located in Paris, France.".lower()));
 
-    rag.add_documents([
-        "The Eiffel Tower is located in Paris, France.",
-        "Python is a popular programming language for data science."
-    ])
-
     # rag.add_documents([
     #     "The Eiffel Tower is located in Paris, France.",
-    #     "Python is a popular programming language for data science.",
-    #     "The Great Wall of China is thousands of kilometers long.",
-    #     "Numpy is used for numerical computations in Python.",
-    #     "Paris is the capital city of France.",
+    #     "Python is a popular programming language for data science."
     # ])
 
+    rag.add_documents([
+        "The Eiffel Tower is located in Paris, France.",
+        "Python is a popular programming language for data science.",
+        "The Great Wall of China is thousands of kilometers long.",
+        "Numpy is used for numerical computations in Python.",
+        "Paris is the capital city of France.",
+    ])
+
     print("--- retrieve() test ---")
-    results = rag.retrieve("Where is the Eiffel Tower?", k=2)
+    print("Where is the Eiffel Tower?")
+    results = rag.query("Where is the Eiffel Tower?")
     print(results)
 
     # print("\n--- edge case: k larger than number of docs ---")
