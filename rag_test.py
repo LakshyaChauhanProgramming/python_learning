@@ -53,21 +53,13 @@ class RAGApplication:
         - Return the top-k matching documents
         """
         query_vec = self._embed(question)
-        print('\n question-----', question)
-        print('\n query vec-----', query_vec)
-        print('\n self.embeddings-----', self.embeddings)
+
         scores = []
-
-        # scores = [self._cosine_similarity(query_vec, doc_vec) for doc_vec in self.embeddings]
-        # or
-
         for i in range(len(self.embeddings)):
             scores.append(self._cosine_similarity(query_vec, self.embeddings[i]))
 
-        print('scores-----', scores)
-
-        # ranked_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
-
+        ranked_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
+        
 
     def query(self, question: str) -> str:
         """
@@ -87,8 +79,6 @@ class RAGApplication:
 if __name__ == "__main__":
     rag = RAGApplication()
 
-    # print(re.findall(r"\w+", "The Eiffel Tower is located in Paris, France.".lower()));
-
     rag.add_documents([
         "The Eiffel Tower is located in Paris, France.",
         "Python is a popular programming language for data science."
@@ -104,7 +94,7 @@ if __name__ == "__main__":
 
     print("--- retrieve() test ---")
     results = rag.retrieve("Where is the Eiffel Tower?", k=2)
-    print(results)
+    print('results----',results)
 
     # print("\n--- edge case: k larger than number of docs ---")
     # print(rag.retrieve("Tell me about France", k=100))
