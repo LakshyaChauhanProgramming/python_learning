@@ -207,3 +207,38 @@ kyun use hui thi.
 - `security-review` — Week 6 (prompt injection, PII) ke waqt kaam aa sakti hai
 - `artifact-design` / `artifact-capabilities` — jab bhi tracker artifact
   republish karna ho
+
+---
+
+## 9. Project Paths
+
+Is repo (`python_learning`) mein **sirf interview drills** rehte hain. Roadmap ke
+saare build projects **alag repos** hain, jo is repo ke root se hamesha **ek level
+upar (`../`)** milenge — chahe machine koi bhi ho.
+
+```
+<parent>/
+├── python_learning/     ← ye repo (drills + roadmap + context)
+└── llm-playground/      ← ../llm-playground   (Week 1 project)
+```
+
+| Project | Path (is repo ke root se) | GitHub | Week |
+|---|---|---|---|
+| `llm-playground` | `../llm-playground` | `LakshyaChauhanProgramming/llm-playground` (public) | Week 1 |
+
+**Rule:** naya project banao to wahi convention follow karna — parent directory
+mein sibling repo, aur us row ko is table mein add kar dena. Kabhi bhi project
+ko `python_learning/` ke andar nested mat banana; drills aur projects alag
+rehne chahiye, kyunki recruiter project repos alag se dekhta hai.
+
+**Dusre system pe setup:**
+
+```bash
+cd <parent>
+git clone git@github.com:LakshyaChauhanProgramming/python_learning.git
+git clone git@github.com:LakshyaChauhanProgramming/llm-playground.git
+```
+
+Dono ek hi parent directory mein clone karna — tabhi `../llm-playground` kaam
+karega. Har nayi machine pe SSH key ek baar add karni padegi
+(`ssh-keygen -t ed25519` → public key GitHub Settings → SSH keys mein).
