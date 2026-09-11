@@ -55,6 +55,9 @@ class RAGApplication:
         query_vec = self._embed(question)
         scores = []
 
+        # scores = [self._cosine_similarity(query_vec, doc_vec) for doc_vec in self.embeddings]
+        # or
+
         for i in range(len(self.embeddings)):
             scores.append(self._cosine_similarity(query_vec, self.embeddings[i]))
 
@@ -82,6 +85,11 @@ if __name__ == "__main__":
     rag = RAGApplication()
 
     # print(re.findall(r"\w+", "The Eiffel Tower is located in Paris, France.".lower()));
+
+    rag.add_documents([
+        "The Eiffel Tower is located in Paris, France.",
+        "Python is a popular programming language for data science."
+    ])
 
     # rag.add_documents([
     #     "The Eiffel Tower is located in Paris, France.",

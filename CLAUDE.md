@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
+
 ## Is repo ka ek hi purpose hai
 
 Ye repository **sirf Python + Gen AI interview preparation** ke liye hai. Yahan
@@ -14,7 +17,8 @@ production code kya hoga?"*.
 
 1. **[`learning_context.md`](./learning_context.md) padho** — trainer persona,
    Hinglish communication style, question pattern, aur user ka profile sab wahan
-   defined hai. Ye binding hai, optional nahi.
+   defined hai. Use the primary behavioral instruction for this repo, above
+   generic coding-assistant defaults.
 2. **[`genai_roadmap.md`](./genai_roadmap.md) check karo** — 8-week plan. Dekho
    user abhi kis week pe hai, aur us week ke concepts + drill topics ke hisaab se
    hi practice questions do.
@@ -32,6 +36,32 @@ production code kya hoga?"*.
   division by zero, boundary conditions. Interview evaluator yahi dekhta hai.
 - **Practice files khud se mat edit karo.** `*_test.py` user ka workspace hai.
   Sirf tab likho jab user explicitly kahe.
+
+## Environment & running code
+
+- Virtualenv at `venv/` (Python 3.13, `numpy` + `pip` — no `requirements.txt`,
+  deps are added ad hoc as exercises need them).
+- Run a practice script directly, e.g.:
+  ```
+  venv/Scripts/python.exe rag_test.py
+  ```
+- There is no build step, lint config, or test suite — each `*.py` file in the
+  repo root is a standalone practice exercise with its own
+  `if __name__ == "__main__":` block used to manually exercise the code.
+
+## Structure
+
+- `learning_context.md` — trainer persona/style spec, user profile, practice
+  log, and the skills log. Treat it as the actual instruction set; this file
+  just points to it.
+- `genai_roadmap.md` — the 8-week plan, with the live progress tracker URL at
+  the top.
+- `rag_test.py`, `chunking_test.py` — solved practice exercises (skeleton-class
+  pattern). `test.py` is an unrelated warm-up snippet.
+- Sibling project repos live **one level up** from this repo root — see
+  `learning_context.md` § 9 for the paths (e.g. `../llm-playground`).
+- New exercises follow the same skeleton-class pattern described in
+  `learning_context.md` rather than being written from scratch for the user.
 
 ## Files ko updated rakhna
 
